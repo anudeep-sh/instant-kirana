@@ -14,17 +14,19 @@ FROM wokalek/nginx-brotli:1.27.1
 
 WORKDIR /etc/nginx
 
-# Install openssl for certificate generation
-RUN apk add --no-cache openssl
 
-# Generate self-signed SSL certificate
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-    -keyout /etc/ssl/private/nginx-selfsigned.key \
-    -out /etc/ssl/certs/nginx-selfsigned.crt \
-    -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
-
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy nginx template and startup script
+COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
 COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80 443
-CMD ["nginx", "-g", "daemon off;"]
+
+# Create startup script
+RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
+    echo 'PORT=${PORT:-80}' >> /docker-entrypoint.sh && \
+    echo 'sed "s/\${PORT}/$PORT/g" /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf' >> /docker-entrypoint.sh && \
+    echo 'exec nginx -g "daemon off;"' >> /docker-entrypoint.sh && \
+    chmod +x /docker-entrypoint.sh
+
+ENV PORT=80
+EXPOSE 80
+CMD ["/docker-entrypoint.sh"]
 

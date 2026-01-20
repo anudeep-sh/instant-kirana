@@ -40,7 +40,7 @@ http {
 
     # HTTP server (Cloud Run terminates SSL and sends HTTP)
     server {
-        listen 80;
+        listen ${PORT};
 
         root /usr/share/nginx/html;
         index index.html;
