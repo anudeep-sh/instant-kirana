@@ -18,11 +18,11 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       sections: [
         {
           heading: '1. Information We Collect',
-          text: 'We collect information you provide directly to us, such as when you create an account, place an order, or contact customer support. This may include your name, email, phone number, and delivery address in Hyderabad.'
+          text: 'We collect information you provide directly during the guest checkout process. This includes your name, email, phone number, and delivery address in the Hyderabad region.'
         },
         {
           heading: '2. How We Use Your Information',
-          text: 'Your data helps us process transactions, ensure lightning-fast delivery from our Hitech City hub, and improve our AI-powered shopping assistant to better serve your needs.'
+          text: 'Your data helps us process transactions, ensure lightning-fast delivery from our Venkatagiri hub, and improve our AI-powered shopping assistant. We operate under NEOFIN NEX India Private Limited.'
         },
         {
           heading: '3. Data Security',
@@ -36,11 +36,11 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       sections: [
         {
           heading: '1. Acceptance of Terms',
-          text: 'By using InstantKirana, you agree to be bound by these terms. Our services are currently optimized for the Hyderabad region, specifically focusing on Hitech City and surrounding areas.'
+          text: 'By using Instant Kiran, you agree to be bound by these terms. Our services are provided by NEOFIN NEX India Private Limited, headquartered at Plot no 102, First floor, Sukiran Apartments, Venkatagiri, Yousufguda, Hyderabad, Telangana 500045.'
         },
         {
           heading: '2. Delivery Policy',
-          text: 'We aim for delivery within 15-30 minutes. However, delivery times may vary based on traffic conditions in Hitech City and weather.'
+          text: 'We aim for delivery within 15-30 minutes. However, delivery times may vary based on local conditions in Venkatagiri and Yousufguda.'
         },
         {
           heading: '3. Pricing and Availability',
@@ -83,7 +83,7 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
           ))}
           <div className="pt-8 border-t text-center">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              Last Updated: October 2023
+              Last Updated: March 2024
             </p>
           </div>
         </div>

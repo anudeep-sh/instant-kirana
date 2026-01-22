@@ -33,58 +33,40 @@ export const PRODUCTS: Product[] = [
     description: 'Crunchy, sweet, and juice-packed red apples.'
   },
   {
-    id: 'f7',
-    name: 'Exotic Hass Avocados',
+    id: 'f11',
+    name: 'Exotic Blueberries',
     category: 'fruits',
-    price: 299,
-    unit: '2 Pieces',
-    image: 'https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=500&q=80',
-    description: 'Creamy, nutrient-dense avocados perfect for toast.'
+    price: 250,
+    unit: '125g',
+    image: 'https://images.unsplash.com/photo-1498557850523-fd3d118b962e?w=500&q=80',
+    description: 'Fresh, antioxidant-rich blueberries imported from Peru.'
   },
   {
-    id: 'f8',
-    name: 'Baby Spinach Pack',
+    id: 'f12',
+    name: 'Organic Kale Leaves',
     category: 'fruits',
-    price: 45,
+    price: 120,
+    unit: '250g',
+    image: 'https://images.unsplash.com/photo-1524179091875-bf99a9a6af57?w=500&q=80',
+    description: 'Superfood green kale, perfect for smoothies and salads.'
+  },
+  {
+    id: 'f13',
+    name: 'Button Mushrooms',
+    category: 'fruits',
+    price: 65,
     unit: '200g',
-    image: 'https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&q=80',
-    description: 'Tender baby spinach leaves, pre-washed.'
+    image: 'https://images.unsplash.com/photo-1504675099198-7023dd85f5a3?w=500&q=80',
+    description: 'Fresh white button mushrooms, farm picked.'
   },
   {
-    id: 'f9',
-    name: 'Dragon Fruit (Pitaya)',
+    id: 'f14',
+    name: 'Sun-ripened Cherry Tomatoes',
     category: 'fruits',
-    price: 140,
-    unit: '1 Piece',
-    image: 'https://images.unsplash.com/photo-1527324688101-046653a04e28?w=500&q=80',
-    description: 'Vibrant pink dragon fruit with sweet white flesh.'
-  },
-  {
-    id: 'f10',
-    name: 'Bell Pepper Trio',
-    category: 'fruits',
-    price: 110,
-    unit: '3 Pieces',
-    image: 'https://images.unsplash.com/photo-1566385101042-1a000c1267c4?w=500&q=80',
-    description: 'Red, yellow, and green bell peppers for colorful meals.'
-  },
-  {
-    id: 'f3',
-    name: 'Organic Bananas',
-    category: 'fruits',
-    price: 60,
-    unit: '1 Dozen',
-    image: 'https://images.unsplash.com/photo-1571771894821-ad996211fdf4?w=500&q=80',
-    description: 'Naturally ripened, energy-packed organic bananas.'
-  },
-  {
-    id: 'f4',
-    name: 'Green Broccoli',
-    category: 'fruits',
-    price: 90,
-    unit: '500g',
-    image: 'https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?w=500&q=80',
-    description: 'Fresh farm broccoli, rich in vitamins.'
+    price: 85,
+    unit: '250g',
+    image: 'https://images.unsplash.com/photo-1592841608619-bc0159284160?w=500&q=80',
+    description: 'Sweet and juicy cherry tomatoes for gourmet salads.'
   },
 
   // Dairy & Eggs
@@ -98,50 +80,31 @@ export const PRODUCTS: Product[] = [
     description: 'Fresh organic farm milk with zero preservatives.'
   },
   {
-    id: 'd7',
-    name: 'Unsweetened Almond Milk',
+    id: 'd10',
+    name: 'Greek Yogurt - Blueberry',
     category: 'dairy',
-    price: 240,
-    unit: '1 Litre',
-    image: 'https://images.unsplash.com/photo-1563453392212-326f5e854473?w=500&q=80',
-    description: 'Premium plant-based milk for health conscious users.'
-  },
-  {
-    id: 'd8',
-    name: 'Fresh Mozzarella Balls',
-    category: 'dairy',
-    price: 280,
-    unit: '200g',
-    image: 'https://images.unsplash.com/photo-1559561853-08451507cbe7?w=500&q=80',
-    description: 'Authentic soft mozzarella for pizzas and salads.'
-  },
-  {
-    id: 'd9',
-    name: 'Set Thick Curd',
-    category: 'dairy',
-    price: 40,
-    unit: '400g',
+    price: 55,
+    unit: '90g',
     image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&q=80',
-    description: 'Traditional thick and creamy set curd.'
+    description: 'Probiotic-rich thick greek yogurt with real fruit.'
   },
   {
-    id: 'd2',
-    name: 'Farm Fresh Brown Eggs',
+    id: 'd11',
+    name: 'Salted Amul Butter',
     category: 'dairy',
-    price: 96,
-    originalPrice: 110,
-    unit: '12 Pieces',
-    image: 'https://images.unsplash.com/photo-1582722872445-44dc5f7e3c8f?w=500&q=80',
-    description: 'High-protein, farm-fresh brown eggs.'
+    price: 255,
+    unit: '500g',
+    image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?w=500&q=80',
+    description: 'The classic taste of India, perfect for pav and parathas.'
   },
   {
-    id: 'd3',
-    name: 'Malai Paneer',
+    id: 'd12',
+    name: 'Grated Mozzarella Cheese',
     category: 'dairy',
-    price: 110,
+    price: 195,
     unit: '200g',
-    image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=500&q=80',
-    description: 'Soft and fresh malai paneer for your curries.'
+    image: 'https://images.unsplash.com/photo-1552767059-ce182ead6c1b?w=500&q=80',
+    description: 'Perfect melting mozzarella for your home-baked pizzas.'
   },
 
   // Bakery
@@ -155,130 +118,115 @@ export const PRODUCTS: Product[] = [
     description: 'Artisanal sourdough bread with a crispy crust.'
   },
   {
-    id: 'b6',
-    name: 'Butter Croissants',
+    id: 'b8',
+    name: 'Multigrain Brown Bread',
     category: 'bakery',
-    price: 180,
-    unit: '2 Pieces',
-    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&q=80',
-    description: 'Flaky, buttery, golden brown French croissants.'
+    price: 55,
+    unit: '400g',
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80',
+    description: 'Fiber-rich healthy brown bread for daily breakfast.'
   },
   {
-    id: 'b7',
-    name: 'Blueberry Bagels',
+    id: 'b9',
+    name: 'French Baguette',
     category: 'bakery',
-    price: 150,
-    unit: '4 Pieces',
-    image: 'https://images.unsplash.com/photo-1585478259715-876a6a81fc08?w=500&q=80',
-    description: 'Freshly baked bagels with real blueberries.'
+    price: 90,
+    unit: '1 Unit',
+    image: 'https://images.unsplash.com/photo-1597690544664-7c74301221f1?w=500&q=80',
+    description: 'Traditional long, thin loaf of French bread.'
   },
   {
-    id: 'b2',
-    name: 'Chocolate Chip Muffins',
+    id: 'b10',
+    name: 'Cinnamon Rolls',
     category: 'bakery',
-    price: 140,
+    price: 160,
     unit: '2 Pieces',
-    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&q=80',
-    description: 'Moist muffins loaded with chocolate chips.'
+    image: 'https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=500&q=80',
+    description: 'Sweet rolls seasoned with a cinnamon-sugar filling.'
   },
 
   // Sweets & Snacks
   {
-    id: 's1',
-    name: 'Kaju Katli',
+    id: 's9',
+    name: 'Roasted Salted Almonds',
     category: 'sweets',
-    price: 550,
-    originalPrice: 650,
-    unit: '500g',
-    image: 'https://images.unsplash.com/photo-1589119634710-86716a506822?w=500&q=80',
-    description: 'Premium cashew fudge with silver leaf.',
-    isFestive: true
+    price: 299,
+    unit: '200g',
+    image: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=500&q=80',
+    description: 'Crunchy Californian almonds, lightly salted.'
   },
   {
-    id: 's7',
-    name: '70% Dark Chocolate',
+    id: 's10',
+    name: 'Classic Potato Chips',
     category: 'sweets',
-    price: 195,
+    price: 40,
     unit: '100g',
-    image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=500&q=80',
-    description: 'Rich artisanal dark chocolate for true cocoa lovers.'
+    image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&q=80',
+    description: 'Thin and crispy salted potato wafers.'
   },
   {
-    id: 's8',
-    name: 'Premium Trail Mix',
+    id: 's11',
+    name: 'Belgian Chocolate Cookies',
     category: 'sweets',
-    price: 350,
-    unit: '250g',
-    image: 'https://images.unsplash.com/photo-1509911596717-3d76c649688c?w=500&q=80',
-    description: 'Healthy mix of nuts, seeds, and dried berries.'
+    price: 180,
+    unit: '150g',
+    image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500&q=80',
+    description: 'Decadent cookies with chunks of Belgian dark chocolate.'
   },
   {
-    id: 's2',
-    name: 'Gulab Jamun Pack',
+    id: 's12',
+    name: 'Nachos Cheese Flavor',
     category: 'sweets',
-    price: 150,
-    unit: '500g',
-    image: 'https://images.unsplash.com/photo-1589119908995-c6837fa14848?w=500&q=80',
-    description: 'Soft and spongy milk dumplings in sugar syrup.',
-    isFestive: true
+    price: 95,
+    unit: '150g',
+    image: 'https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=500&q=80',
+    description: 'Zesty cheese flavored corn tortilla chips.'
   },
 
   // Staples
   {
-    id: 'st1',
-    name: 'Basmati Rice - Long Grain',
+    id: 'st10',
+    name: 'Pure Himalayan Honey',
+    category: 'staples',
+    price: 340,
+    unit: '500g',
+    image: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500&q=80',
+    description: '100% natural and unprocessed mountain honey.'
+  },
+  {
+    id: 'st11',
+    name: 'Assam Tea Leaves',
+    category: 'staples',
+    price: 220,
+    unit: '500g',
+    image: 'https://images.unsplash.com/photo-1544787210-2211d6e3164a?w=500&q=80',
+    description: 'Strong and aromatic CTC tea from Assam gardens.'
+  },
+  {
+    id: 'st12',
+    name: 'Arabica Coffee Beans',
     category: 'staples',
     price: 550,
-    originalPrice: 650,
-    unit: '5kg',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80',
-    description: 'Premium aged Basmati rice with rich aroma.',
-    isFestive: true
+    unit: '250g',
+    image: 'https://images.unsplash.com/photo-1559056191-7417f245831e?w=500&q=80',
+    description: 'Medium-dark roast whole beans for a perfect brew.'
   },
   {
-    id: 'st7',
-    name: 'Extra Virgin Olive Oil',
+    id: 'st13',
+    name: 'Brown Basmati Rice',
     category: 'staples',
-    price: 890,
-    originalPrice: 1100,
-    unit: '1 Litre',
-    image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=500&q=80',
-    description: 'First cold-pressed olive oil for healthy cooking.'
-  },
-  {
-    id: 'st8',
-    name: 'Organic White Quinoa',
-    category: 'staples',
-    price: 240,
-    unit: '500g',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80',
-    description: 'High-protein superfood grain, gluten-free.'
-  },
-  {
-    id: 'st9',
-    name: 'Red Split Lentils (Masoor Dal)',
-    category: 'staples',
-    price: 115,
+    price: 210,
     unit: '1kg',
-    image: 'https://images.unsplash.com/photo-1585827145647-59425f448fea?w=500&q=80',
-    description: 'Essential kitchen staple, high in protein.'
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&q=80',
+    description: 'Healthy whole grain basmati rice with low GI.'
   },
   {
-    id: 'st2',
-    name: 'Premium Sharbati Atta',
+    id: 'st14',
+    name: 'Organic Cold Pressed Coconut Oil',
     category: 'staples',
-    price: 260,
-    unit: '5kg',
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&q=80',
-    description: 'Whole wheat flour for soft rotis.'
-  },
-  {
-    id: 'st3',
-    name: 'Pure Cow Ghee',
-    category: 'staples',
-    price: 650,
-    unit: '1 Litre',
-    image: 'https://images.unsplash.com/photo-1589927986089-35812388d1f4?w=500&q=80',
-    description: 'Traditional aroma and taste of pure cow ghee.'
+    price: 450,
+    unit: '500ml',
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c35dd6?w=500&q=80',
+    description: 'Pure coconut oil extracted through cold pressing.'
   }
 ];

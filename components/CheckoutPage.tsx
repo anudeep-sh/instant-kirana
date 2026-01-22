@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, CreditCard, Wallet, Smartphone, ShieldCheck, CheckCircle2, MapPin, User, Mail, Phone } from 'lucide-react';
+import { ArrowLeft, CreditCard, Wallet, Smartphone, ShieldCheck, CheckCircle2, MapPin, User, Mail, Phone, Tag, Ticket } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface CheckoutPageProps {
@@ -9,20 +9,78 @@ interface CheckoutPageProps {
   onComplete: () => void;
 }
 
+interface Coupon {
+  code: string;
+  discount: number;
+  type: 'percent' | 'flat' | 'free_shipping';
+  minOrder?: number;
+}
+
+const COUPONS: Coupon[] = [
+  { code: 'KIRAN10', discount: 10, type: 'percent' },
+  { code: 'FRESH50', discount: 50, type: 'flat', minOrder: 500 },
+  { code: 'WELCOME', discount: 20, type: 'percent' },
+  { code: 'FREE750', discount: 0, type: 'free_shipping', minOrder: 750 }
+];
+
 const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }) => {
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'upi' | 'wallet'>('card');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
+  const [couponError, setCouponError] = useState('');
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    address: 'Plot 42, Hitech City, Hyderabad, Telangana - 500081'
+    address: 'Plot no 102, First floor, Sukiran Apartments, Venkatagiri, Yousufguda, Hyderabad, Telangana 500045'
   });
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const deliveryFee = subtotal > 500 ? 0 : 40;
-  const total = subtotal + deliveryFee;
+  
+  // Calculate Discount
+  let discountAmount = 0;
+  if (appliedCoupon) {
+    if (appliedCoupon.type === 'percent') {
+      discountAmount = (subtotal * appliedCoupon.discount) / 100;
+    } else if (appliedCoupon.type === 'flat') {
+      discountAmount = appliedCoupon.discount;
+    }
+  }
+
+  // Calculate Delivery Fee
+  let deliveryFee = subtotal > 500 ? 0 : 40;
+  if (appliedCoupon?.type === 'free_shipping' && subtotal >= (appliedCoupon.minOrder || 0)) {
+    deliveryFee = 0;
+  }
+
+  const total = Math.max(0, subtotal - discountAmount + deliveryFee);
+
+  const handleApplyCoupon = () => {
+    setCouponError('');
+    const coupon = COUPONS.find(c => c.code === couponInput.toUpperCase());
+    
+    if (!coupon) {
+      setCouponError('Invalid coupon code');
+      setAppliedCoupon(null);
+      return;
+    }
+
+    if (coupon.minOrder && subtotal < coupon.minOrder) {
+      setCouponError(`Minimum order of ₹${coupon.minOrder} required`);
+      setAppliedCoupon(null);
+      return;
+    }
+
+    setAppliedCoupon(coupon);
+    setCouponInput('');
+  };
+
+  const handleRemoveCoupon = () => {
+    setAppliedCoupon(null);
+  };
 
   const handlePayment = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +108,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
             <CheckCircle2 className="text-green-600" size={48} />
           </div>
           <h2 className="text-3xl font-black text-gray-800 mb-2">Order Confirmed!</h2>
-          <p className="text-gray-500 mb-8">Thank you, {formData.name.split(' ')[0]}! Your order is being packed for lightning-fast delivery to Hitech City.</p>
+          <p className="text-gray-500 mb-8">Thank you, {formData.name.split(' ')[0]}! Your order is being packed for lightning-fast delivery from our Yousufguda hub.</p>
           <div className="animate-pulse text-green-600 font-bold">Redirecting you home...</div>
         </div>
       </div>
@@ -122,10 +180,56 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
                 <div className="p-4 bg-green-50 rounded-2xl border-2 border-green-100 flex gap-4">
                   <MapPin className="text-green-600 shrink-0" size={20} />
                   <div>
-                    <p className="font-bold text-gray-800 text-sm">Hitech City Hub Delivery</p>
+                    <p className="font-bold text-gray-800 text-sm">Official Hub Delivery</p>
                     <p className="text-sm text-gray-500">{formData.address}</p>
                   </div>
                 </div>
+              </div>
+
+              {/* Promo Code Section */}
+              <div>
+                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Apply Coupon</label>
+                {!appliedCoupon ? (
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                        <input 
+                          type="text" 
+                          placeholder="Enter Promo Code (e.g. KIRAN10)"
+                          className="w-full bg-gray-50 border-2 border-transparent focus:border-green-500 rounded-2xl py-3 pl-12 pr-4 transition-all outline-none text-sm uppercase font-bold"
+                          value={couponInput}
+                          onChange={(e) => setCouponInput(e.target.value)}
+                        />
+                      </div>
+                      <button 
+                        type="button"
+                        onClick={handleApplyCoupon}
+                        className="bg-gray-800 text-white px-6 rounded-2xl font-bold hover:bg-gray-900 transition-all text-sm"
+                      >
+                        Apply
+                      </button>
+                    </div>
+                    {couponError && <p className="text-xs text-red-500 font-bold ml-1">{couponError}</p>}
+                  </div>
+                ) : (
+                  <div className="p-4 bg-green-600 text-white rounded-2xl flex items-center justify-between animate-in slide-in-from-top-2">
+                    <div className="flex items-center gap-3">
+                      <Ticket size={20} />
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-widest opacity-80">Coupon Applied</p>
+                        <p className="font-black">{appliedCoupon.code}</p>
+                      </div>
+                    </div>
+                    <button 
+                      type="button"
+                      onClick={handleRemoveCoupon}
+                      className="text-xs font-bold underline hover:no-underline"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div>
@@ -198,13 +302,19 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
                 <span>Subtotal</span>
                 <span>₹{subtotal}</span>
               </div>
+              {discountAmount > 0 && (
+                <div className="flex justify-between text-green-600 font-bold">
+                  <span>Discount ({appliedCoupon?.code})</span>
+                  <span>-₹{Math.round(discountAmount)}</span>
+                </div>
+              )}
               <div className="flex justify-between text-gray-500">
                 <span>Delivery</span>
-                <span>{deliveryFee === 0 ? 'FREE' : `₹${deliveryFee}`}</span>
+                <span>{deliveryFee === 0 ? <span className="text-green-600 font-bold">FREE</span> : `₹${deliveryFee}`}</span>
               </div>
               <div className="pt-4 border-t flex justify-between text-2xl font-black text-gray-900">
                 <span>Total</span>
-                <span>₹{total}</span>
+                <span>₹{Math.round(total)}</span>
               </div>
             </div>
             <button 
@@ -212,7 +322,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
               disabled={isProcessing}
               className="w-full bg-green-600 text-white font-black py-5 rounded-2xl shadow-lg shadow-green-200 hover:bg-green-700 hover:-translate-y-1 transition-all disabled:opacity-70 disabled:translate-y-0"
             >
-              {isProcessing ? 'Processing...' : `Pay ₹${total}`}
+              {isProcessing ? 'Processing...' : `Pay ₹${Math.round(total)}`}
             </button>
             <p className="text-center text-[10px] text-gray-400 mt-6 uppercase font-bold tracking-widest">
               Secured by 256-bit SSL Encryption

@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex flex-col items-start cursor-pointer" onClick={() => onSearch('')}>
             <h1 className="text-2xl font-black flex items-center">
               <span className="text-green-600">Instant</span>
-              <span className="text-orange-500">Kirana</span>
+              <span className="text-orange-500">Kiran</span>
             </h1>
             <span className="text-[10px] tracking-[0.2em] text-gray-400 font-bold uppercase mt-[-2px]">Fast & Fresh</span>
           </div>
@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="relative group">
             <input 
               type="text" 
-              placeholder="Search for atta, dal, coke or more" 
+              placeholder="Search for fresh items..." 
               className="w-full pl-5 pr-24 py-3 rounded-xl border-2 border-gray-100 focus:border-green-500 focus:outline-none transition-all text-sm group-hover:bg-gray-50"
               value={searchInput}
               onChange={(e) => {
@@ -105,8 +105,8 @@ const Header: React.FC<HeaderProps> = ({
         <div className="container mx-auto px-4 flex justify-center gap-8 py-3 text-xs font-bold text-gray-500 uppercase tracking-widest">
           <button onClick={() => onSearch('')} className="text-green-600 border-b-2 border-green-600 pb-1">Home</button>
           <a href="#" className="hover:text-green-600 transition-colors">Grocery</a>
-          <a href="#" className="hover:text-green-600 transition-colors">Personal Care</a>
-          <a href="#" className="hover:text-green-600 transition-colors">Snacks</a>
+          <a href="#" className="hover:text-green-600 transition-colors">Essentials</a>
+          <a href="#" className="hover:text-green-600 transition-colors">Daily Fresh</a>
           <a href="#" className="hover:text-green-600 transition-colors">Offers</a>
         </div>
       </nav>

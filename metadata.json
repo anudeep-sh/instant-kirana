@@ -1,7 +1,7 @@
 
 {
-  "name": "InstantKirana - Smart Grocery E-Commerce",
-  "description": "A high-performance, visually stunning e-commerce platform for lightning-fast grocery deliveries, featuring real-time search, cart management, and a Gemini-powered smart shopping assistant.",
+  "name": "Instant Kiran - Smart Grocery E-Commerce",
+  "description": "Premium grocery delivery service by NEOFIN NEX India Private Limited. Delivering fresh essentials to Venkatagiri, Yousufguda and beyond.",
   "requestFramePermissions": [
     "geolocation"
   ]

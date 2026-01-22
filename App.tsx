@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [location, setLocation] = useState<Location>({ name: 'Hitech City, Hyderabad' });
+  const [location, setLocation] = useState<Location>({ name: 'Yousufguda, Hyderabad' });
   const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: 'privacy' | 'terms' }>({
     isOpen: false,
     type: 'privacy'
@@ -86,7 +86,7 @@ const App: React.FC = () => {
   const handleLocationClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        setLocation({ name: 'Hitech City, Hyderabad', lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setLocation({ name: 'Venkatagiri, Hyderabad', lat: pos.coords.latitude, lng: pos.coords.longitude });
       }, (err) => {
         alert("Unable to fetch location. Please choose manually.");
       });
@@ -208,12 +208,12 @@ const App: React.FC = () => {
               <div className="mb-6">
                 <h1 className="text-2xl font-black flex items-center">
                   <span className="text-green-600">Instant</span>
-                  <span className="text-orange-500">Kirana</span>
+                  <span className="text-orange-500">Kiran</span>
                 </h1>
-                <span className="text-[10px] tracking-widest text-gray-400 font-bold uppercase mt-1">Your Digital Supermarket</span>
+                <span className="text-[10px] tracking-widest text-gray-400 font-bold uppercase mt-1">NEOFIN NEX India Pvt Ltd</span>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                Redefining grocery shopping with speed and quality. From local kirana essentials to premium global brands, delivered instantly from our Hitech City hub.
+                Redefining shopping with speed and quality. Local essentials delivered instantly from our Yousufguda hub to your doorstep.
               </p>
             </div>
 
@@ -242,26 +242,25 @@ const App: React.FC = () => {
               <div className="space-y-5">
                 <div className="flex gap-3">
                   <MapPin className="text-green-600 shrink-0" size={18} />
-                  <p className="text-sm text-gray-500 font-medium leading-tight">
-                    Plot 42, Hitech City,<br />
-                    Hyderabad, Telangana - 500081
+                  <p className="text-sm text-gray-500 font-medium leading-tight text-balance">
+                    Plot no 102, First floor, Sukiran Apartments, Venkatagiri, Yousufguda, Hyderabad, Telangana 500045
                   </p>
                 </div>
                 <div className="flex gap-3">
                   <Mail className="text-green-600 shrink-0" size={18} />
-                  <p className="text-sm text-gray-500 font-medium">help@instantkirana.com</p>
+                  <p className="text-sm text-gray-500 font-medium">support@thequickpayme.com</p>
                 </div>
                 <div className="flex gap-3">
                   <Phone className="text-green-600 shrink-0" size={18} />
-                  <p className="text-sm text-gray-500 font-medium">1800-INSTANT-K</p>
+                  <p className="text-sm text-gray-500 font-medium">8143900450</p>
                 </div>
               </div>
             </div>
           </div>
           
           <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} InstantKirana Retail Private Limited.
+            <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
+              &copy; {new Date().getFullYear()} NEOFIN NEX India Private Limited. All rights reserved.
             </p>
             <div className="flex gap-4">
               <div className="w-8 h-5 bg-gray-100 rounded-sm"></div>
