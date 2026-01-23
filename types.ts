@@ -2,6 +2,7 @@
 export interface Product {
   id: string;
   name: string;
+  brand: string; // Added brand field
   category: string;
   price: number;
   originalPrice?: number;
@@ -19,6 +20,7 @@ export interface Category {
   id: string;
   name: string;
   icon: string;
+  color: string; // Added color for logo-style backgrounds
 }
 
 export type Location = {
