@@ -14,8 +14,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onSwitchToSignup, onBack
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you'd validate against a backend. 
-    // We'll mock it using the email's first part as the name.
     const name = email.split('@')[0];
     onLogin(name.charAt(0).toUpperCase() + name.slice(1), email);
   };

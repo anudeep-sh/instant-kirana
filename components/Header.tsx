@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex flex-col items-start cursor-pointer" onClick={() => onSearch('')}>
             <h1 className="text-2xl font-black flex items-center">
               <span className="text-green-600">Instant</span>
-              <span className="text-orange-500">Kiran</span>
+              <span className="text-orange-500">Kirana</span>
             </h1>
             <span className="text-[10px] tracking-[0.2em] text-gray-400 font-bold uppercase mt-[-2px]">Fast & Fresh</span>
           </div>

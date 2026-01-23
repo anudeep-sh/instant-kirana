@@ -72,7 +72,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onSignup, onSwitchToLogin, onBa
                 type="tel" 
                 required
                 className="w-full bg-gray-50 border-none rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-green-500 transition-all outline-none text-sm"
-                placeholder="+91 98765 43210"
+                placeholder="+91 81439 00450"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
               />

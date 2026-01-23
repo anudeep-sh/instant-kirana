@@ -6,12 +6,12 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
 import CartSidebar from './components/CartSidebar';
-import SmartAssistant from './components/SmartAssistant';
 import CheckoutPage from './components/CheckoutPage';
 import LegalModal from './components/LegalModal';
 import { ChevronRight, MapPin, Mail, Phone } from 'lucide-react';
 
 type View = 'shop' | 'checkout';
+type LegalType = 'privacy' | 'terms' | 'shipping' | 'return';
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>('shop');
@@ -20,7 +20,7 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [location, setLocation] = useState<Location>({ name: 'Yousufguda, Hyderabad' });
-  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: 'privacy' | 'terms' }>({
+  const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: LegalType }>({
     isOpen: false,
     type: 'privacy'
   });
@@ -65,7 +65,6 @@ const App: React.FC = () => {
       return [...prev, { ...product, quantity: 1 }];
     });
     
-    // Trigger checkout flow immediately after adding
     handleCheckoutClick();
   };
 
@@ -99,7 +98,7 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const openLegal = (type: 'privacy' | 'terms') => {
+  const openLegal = (type: LegalType) => {
     setLegalModal({ isOpen: true, type });
   };
 
@@ -121,7 +120,6 @@ const App: React.FC = () => {
           <>
             {selectedCategory === 'all' && !searchQuery && <Hero />}
 
-            {/* Category Selection Bar */}
             <div className="container mx-auto px-4 py-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
@@ -142,7 +140,6 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Festive Section */}
             {selectedCategory === 'all' && !searchQuery && (
               <div className="bg-white py-12">
                 <div className="container mx-auto px-4">
@@ -164,7 +161,6 @@ const App: React.FC = () => {
               </div>
             )}
 
-            {/* All Products Section */}
             <div className="container mx-auto px-4 py-12">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-black text-gray-800">
@@ -208,9 +204,9 @@ const App: React.FC = () => {
               <div className="mb-6">
                 <h1 className="text-2xl font-black flex items-center">
                   <span className="text-green-600">Instant</span>
-                  <span className="text-orange-500">Kiran</span>
+                  <span className="text-orange-500">Kirana</span>
                 </h1>
-                <span className="text-[10px] tracking-widest text-gray-400 font-bold uppercase mt-1">NEOFIN NEX India Pvt Ltd</span>
+                <span className="text-[10px] tracking-widest text-gray-400 font-bold uppercase mt-1">NEOFIN NEX India Private Limited</span>
               </div>
               <p className="text-gray-500 text-sm leading-relaxed mb-6">
                 Redefining shopping with speed and quality. Local essentials delivered instantly from our Yousufguda hub to your doorstep.
@@ -232,8 +228,8 @@ const App: React.FC = () => {
               <ul className="space-y-4 text-sm text-gray-500 font-medium">
                 <li><button onClick={() => openLegal('privacy')} className="hover:text-green-600 transition-colors">Privacy Policy</button></li>
                 <li><button onClick={() => openLegal('terms')} className="hover:text-green-600 transition-colors">Terms & Conditions</button></li>
-                <li><a href="#" className="hover:text-green-600 transition-colors">Shipping Policy</a></li>
-                <li><a href="#" className="hover:text-green-600 transition-colors">Return Policy</a></li>
+                <li><button onClick={() => openLegal('shipping')} className="hover:text-green-600 transition-colors">Shipping Policy</button></li>
+                <li><button onClick={() => openLegal('return')} className="hover:text-green-600 transition-colors">Return Policy</button></li>
               </ul>
             </div>
 
@@ -279,8 +275,6 @@ const App: React.FC = () => {
         onRemove={removeFromCart}
         onCheckout={handleCheckoutClick}
       />
-
-      <SmartAssistant products={PRODUCTS} />
 
       <LegalModal 
         isOpen={legalModal.isOpen} 
