@@ -1,6 +1,6 @@
 {
-  "name": "InstantKirana - Smart Grocery E-Commerce",
-  "description": "Premium grocery delivery service by NEOFIN NEX India Private Limited. Delivering fresh essentials to Venkatagiri, Yousufguda and beyond.",
+  "name": "ecart - Smart Grocery E-Commerce",
+  "description": "Premium grocery delivery service by MTST SEVA Technologies Pvt. Ltd. Delivering fresh essentials to Warangal and beyond.",
   "requestFramePermissions": [
     "geolocation"
   ]

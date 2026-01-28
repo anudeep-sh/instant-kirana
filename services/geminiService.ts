@@ -1,12 +1,13 @@
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import { Product } from "../types";
 
-// Always use process.env.API_KEY directly; assume it is valid and pre-configured.
+const API_KEY = process.env.API_KEY || "";
 
 export const getSmartRecommendations = async (userPrompt: string, availableProducts: Product[]) => {
-  // Always use `new GoogleGenAI({apiKey: process.env.API_KEY});`.
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  if (!API_KEY) return "I'm sorry, I can't assist right now as the AI service is not configured.";
+
+  const ai = new GoogleGenAI({ apiKey: API_KEY });
   
   const productList = availableProducts.map(p => `${p.name} (ID: ${p.id}, Category: ${p.category}, Price: ₹${p.price})`).join(", ");
 
@@ -20,7 +21,6 @@ export const getSmartRecommendations = async (userPrompt: string, availableProdu
   `;
 
   try {
-    // Call generateContent with both model name and prompt as per guidelines.
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: userPrompt,
@@ -30,7 +30,6 @@ export const getSmartRecommendations = async (userPrompt: string, availableProdu
       }
     });
 
-    // Access .text property directly (not as a method).
     return response.text || "I'm having trouble thinking of recommendations right now.";
   } catch (error) {
     console.error("Gemini Error:", error);

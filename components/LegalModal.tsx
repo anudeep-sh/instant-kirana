@@ -15,63 +15,35 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
   const content = {
     privacy: {
       title: 'Privacy Policy',
-      icon: <Shield className="text-green-600" size={24} />,
+      icon: <Shield className="text-blue-600" size={24} />,
       sections: [
         {
           heading: '1. Introduction',
-          text: 'At NEOFIN NEX India Private Limited (InstantKirana), we respect your privacy and are committed to protecting your personal data. This policy outlines how we collect, use, and safeguard your information.'
+          text: 'At MTST SEVA Technologies Pvt. Ltd. (ecart), we respect your privacy and are committed to protecting your personal data. This policy outlines how we collect, use, and safeguard your information.'
         },
         {
           heading: '2. Data Collection',
-          text: 'We collect information such as your name, mobile number, delivery address, and email when you place an order. We also collect device information and location data to facilitate local deliveries in the Hyderabad region.'
-        },
-        {
-          heading: '3. Data Usage',
-          text: 'Your data is used solely for processing orders, communicating delivery updates, and improving our service. We do not sell your personal information to third parties.'
-        },
-        {
-          heading: '4. Security Measures',
-          text: 'We use industry-standard encryption (AES-256) and secure servers to protect your sensitive data during transactions.'
+          text: 'We collect information such as your name, mobile number, delivery address, and email when you place an order. We also collect device information and location data to facilitate local deliveries in the Warangal region.'
         }
       ]
     },
     safety: {
       title: 'Safety Policy',
-      icon: <HeartPulse className="text-blue-500" size={24} />,
+      icon: <HeartPulse className="text-red-500" size={24} />,
       sections: [
         {
           heading: '1. Product Quality & Hygiene',
-          text: 'NEOFIN NEX India Private Limited adheres to strict FSSAI guidelines. All fresh produce and groceries are stored in temperature-controlled environments to maintain maximum hygiene and nutritional value.'
-        },
-        {
-          heading: '2. Safe Handling',
-          text: 'Our warehouse staff and delivery partners follow rigorous hand-sanitization and masking protocols. Every package is checked for integrity before dispatch from our Yousufguda hub.'
-        },
-        {
-          heading: '3. No-Contact Delivery',
-          text: 'We offer specialized no-contact delivery options. Our riders are trained to maintain physical distance and leave packages at designated spots to ensure customer safety.'
+          text: 'MTST SEVA Technologies Pvt. Ltd. adheres to strict FSSAI guidelines. All fresh produce and groceries are stored in temperature-controlled environments.'
         }
       ]
     },
     terms: {
       title: 'Terms & Conditions',
-      icon: <FileText className="text-orange-500" size={24} />,
+      icon: <FileText className="text-blue-600" size={24} />,
       sections: [
         {
           heading: '1. General Terms',
-          text: 'These terms govern your use of the InstantKirana platform provided by NEOFIN NEX India Private Limited. By accessing our platform, you agree to comply with all applicable local and national laws.'
-        },
-        {
-          heading: '2. User Accounts',
-          text: 'You are responsible for maintaining the confidentiality of your account details. Orders placed through your account are considered authorized by you.'
-        },
-        {
-          heading: '3. Intellectual Property',
-          text: 'All content, including logos, designs, and text, is the exclusive property of NEOFIN NEX India Private Limited. Unauthorized reproduction is strictly prohibited.'
-        },
-        {
-          heading: '4. Limitation of Liability',
-          text: 'While we strive for excellence, we are not liable for any indirect or consequential damages arising from the use of our services.'
+          text: 'These terms govern your use of the ecart platform provided by MTST SEVA Technologies Pvt. Ltd.'
         }
       ]
     },
@@ -81,15 +53,7 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       sections: [
         {
           heading: '1. Eligibility for Refund',
-          text: 'NEOFIN NEX India Private Limited offers refunds for items that are damaged, expired, or significantly different from their description. For fresh items like milk and vegetables, refund requests must be initiated at the time of delivery.'
-        },
-        {
-          heading: '2. Refund Process',
-          text: 'Once a refund is approved, the amount will be credited back to your original payment method within 3 to 5 business days. For cash on delivery orders, refunds are issued via UPI or to your platform wallet.'
-        },
-        {
-          heading: '3. Cancellation Policy',
-          text: 'Orders can be canceled free of charge before they are dispatched. Once an order is out for delivery, a nominal cancellation fee may apply.'
+          text: 'MTST SEVA Technologies Pvt. Ltd. offers refunds for items that are damaged, expired, or significantly different from their description.'
         }
       ]
     },
@@ -99,64 +63,59 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       sections: [
         {
           heading: '1. Delivery Area',
-          text: 'Currently, InstantKirana operates exclusively in the Hyderabad region, serving Yousufguda, Venkatagiri, and surrounding neighborhoods.'
-        },
-        {
-          heading: '2. Delivery Times',
-          text: 'Our standard delivery time is between 15 to 30 minutes. We operate daily from 6:00 AM to 11:00 PM.'
-        },
-        {
-          heading: '3. Shipping Charges',
-          text: 'Delivery is FREE for all orders above ₹500. For orders below this amount, a flat delivery fee of ₹40 applies.'
+          text: 'Currently, ecart operates exclusively in the Warangal region, serving Shivnagar and surrounding neighborhoods.'
         }
       ]
     }
   };
 
-  const activeContent = content[type];
+  const activeContent = content[type] || content.privacy;
 
   return (
     <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
       <div 
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
+        className="absolute inset-0 bg-blue-900/60 backdrop-blur-md animate-in fade-in duration-500"
         onClick={onClose}
       />
-      <div className="relative bg-white w-full max-w-2xl max-h-[80vh] overflow-hidden rounded-[2.5rem] shadow-2xl animate-in zoom-in duration-300 flex flex-col">
-        <div className="p-8 border-b flex items-center justify-between bg-gray-50">
-          <div className="flex items-center gap-3">
-            <div className="p-3 bg-white rounded-2xl shadow-sm">
+      <div className="relative bg-white w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-[3rem] shadow-2xl animate-in zoom-in slide-in-from-bottom-10 duration-500 flex flex-col border-4 border-white/50">
+        <div className="p-10 border-b border-gray-50 flex items-center justify-between bg-gray-50/50">
+          <div className="flex items-center gap-5">
+            <div className="p-4 bg-white rounded-3xl shadow-xl rotate-3">
               {activeContent.icon}
             </div>
-            <h2 className="text-2xl font-black text-gray-800">{activeContent.title}</h2>
+            <div>
+                <h2 className="text-3xl font-black text-gray-900 italic tracking-tight">{activeContent.title}</h2>
+                <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest opacity-60">ecart Compliance</p>
+            </div>
           </div>
           <button 
             onClick={onClose}
-            className="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-400 hover:text-gray-600"
+            className="p-3 hover:bg-red-50 hover:text-red-500 rounded-full transition-all text-gray-400 border border-transparent hover:border-red-100"
           >
-            <X size={24} />
+            <X size={28} />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8 space-y-8">
+        <div className="flex-1 overflow-y-auto p-10 space-y-10 no-scrollbar">
           {activeContent.sections.map((section, idx) => (
-            <div key={idx} className="space-y-3">
-              <h3 className="text-lg font-bold text-gray-800">{section.heading}</h3>
-              <p className="text-gray-500 leading-relaxed text-sm">{section.text}</p>
+            <div key={idx} className="space-y-4">
+              <h3 className="text-xl font-black text-gray-900 italic underline decoration-blue-500/30 decoration-8 underline-offset-[-2px]">{section.heading}</h3>
+              <p className="text-gray-500 leading-relaxed font-medium">{section.text}</p>
             </div>
           ))}
-          <div className="pt-8 border-t text-center">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              &copy; {new Date().getFullYear()} NEOFIN NEX India Private Limited. All rights reserved.
+          <div className="pt-10 border-t border-dashed border-gray-100 text-center">
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">
+              &copy; {new Date().getFullYear()} MTST SEVA Technologies Pvt. Ltd.
             </p>
           </div>
         </div>
 
-        <div className="p-6 border-t bg-gray-50 flex justify-end">
+        <div className="p-8 border-t border-gray-50 bg-gray-50/30 flex justify-end">
           <button 
             onClick={onClose}
-            className="bg-green-600 text-white font-bold px-8 py-3 rounded-xl hover:bg-green-700 transition-all shadow-lg shadow-green-100"
+            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white font-black px-12 py-4 rounded-2xl hover:scale-105 transition-all shadow-2xl shadow-blue-100 uppercase tracking-widest text-xs"
           >
-            I Understand
+            Got it!
           </button>
         </div>
       </div>

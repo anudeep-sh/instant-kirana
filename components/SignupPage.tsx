@@ -26,8 +26,8 @@ const SignupPage: React.FC<SignupPageProps> = ({ onSignup, onSwitchToLogin, onBa
       <div className="bg-white w-full max-w-md rounded-[2.5rem] shadow-2xl shadow-green-100/50 p-8 md:p-12 border border-gray-50">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-black flex items-center justify-center mb-4">
-            <span className="text-green-600">Instant</span>
-            <span className="text-orange-500">Kirana</span>
+            <span className="text-green-600">e</span>
+            <span className="text-orange-500">cart</span>
           </h1>
           <h2 className="text-2xl font-bold text-gray-800">Join the Family</h2>
           <p className="text-gray-500 text-sm mt-2">Get fresh groceries delivered in minutes</p>
@@ -72,7 +72,7 @@ const SignupPage: React.FC<SignupPageProps> = ({ onSignup, onSwitchToLogin, onBa
                 type="tel" 
                 required
                 className="w-full bg-gray-50 border-none rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-green-500 transition-all outline-none text-sm"
-                placeholder="+91 81439 00450"
+                placeholder="+91 94900 53646"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
               />

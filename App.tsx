@@ -1,69 +1,55 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS, CATEGORIES } from './constants';
-import { Product, CartItem, Location, View, User } from './types';
+import { Product, CartItem, Location } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
 import CartSidebar from './components/CartSidebar';
 import CheckoutPage from './components/CheckoutPage';
 import LegalModal from './components/LegalModal';
-import LoginPage from './components/LoginPage';
-import SignupPage from './components/SignupPage';
 import { ChevronRight, MapPin, Mail, Phone } from 'lucide-react';
 
+type View = 'shop' | 'checkout';
 export type LegalType = 'privacy' | 'terms' | 'shipping' | 'return' | 'safety';
 
 const App: React.FC = () => {
   const [view, setView] = useState<View>('shop');
-  const [user, setUser] = useState<User | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [isOffersOnly, setIsOffersOnly] = useState(false);
-  const [location, setLocation] = useState<Location>({ name: 'Yousufguda, Hyderabad' });
+  const [showOnlyOffers, setShowOnlyOffers] = useState(false);
+  const [location, setLocation] = useState<Location>({ name: 'Shivnagar, Warangal' });
   const [legalModal, setLegalModal] = useState<{ isOpen: boolean; type: LegalType }>({
     isOpen: false,
     type: 'privacy'
   });
 
-  // Load cart and user on init
   useEffect(() => {
     const savedCart = localStorage.getItem('kirana_cart');
-    if (savedCart) setCart(JSON.parse(savedCart));
-
-    const savedUser = localStorage.getItem('kirana_user');
-    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
   }, []);
 
-  // Save changes to local storage
   useEffect(() => {
     localStorage.setItem('kirana_cart', JSON.stringify(cart));
   }, [cart]);
-
-  useEffect(() => {
-    if (user) localStorage.setItem('kirana_user', JSON.stringify(user));
-    else localStorage.removeItem('kirana_user');
-  }, [user]);
 
   const filteredProducts = useMemo(() => {
     return PRODUCTS.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
-      const matchesOffers = !isOffersOnly || (product.originalPrice && product.originalPrice > product.price);
+      const matchesOffers = !showOnlyOffers || (product.originalPrice !== undefined);
       return matchesSearch && matchesCategory && matchesOffers;
     });
-  }, [searchQuery, selectedCategory, isOffersOnly]);
+  }, [searchQuery, selectedCategory, showOnlyOffers]);
 
   const festiveProducts = useMemo(() => 
     PRODUCTS.filter(p => p.isFestive), []);
 
   const handleCheckoutClick = () => {
-    if (!user) {
-      setView('login');
-      return;
-    }
     setIsCartOpen(false);
     setView('checkout');
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -97,8 +83,8 @@ const App: React.FC = () => {
   const handleLocationClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        setLocation({ name: 'Venkatagiri, Hyderabad', lat: pos.coords.latitude, lng: pos.coords.longitude });
-      }, () => {
+        setLocation({ name: 'Warangal, Telangana', lat: pos.coords.latitude, lng: pos.coords.longitude });
+      }, (err) => {
         alert("Unable to fetch location. Please choose manually.");
       });
     }
@@ -114,82 +100,83 @@ const App: React.FC = () => {
     setLegalModal({ isOpen: true, type });
   };
 
-  const handleNavAction = (action: string) => {
+  const handleNavClick = (type: string) => {
     setView('shop');
     setSearchQuery('');
-    setIsOffersOnly(false);
-    if (action === 'home') setSelectedCategory('all');
-    else if (action === 'grocery') setSelectedCategory('staples');
-    else if (action === 'essentials') setSelectedCategory('household');
-    else if (action === 'fresh') setSelectedCategory('fruits');
-    else if (action === 'offers') {
-      setIsOffersOnly(true);
+    setShowOnlyOffers(false);
+    
+    if (type === 'home' || type === 'all') {
       setSelectedCategory('all');
+    } else if (type === 'offers') {
+      setSelectedCategory('all');
+      setShowOnlyOffers(true);
+    } else {
+      setSelectedCategory(type);
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleLogin = (name: string, email: string) => {
-    setUser({ name, email });
-    setView('shop');
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50/50">
+    <div className="min-h-screen flex flex-col selection:bg-red-200 selection:text-red-900 bg-gray-50">
       <Header 
         cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
         onCartToggle={() => setIsCartOpen(!isCartOpen)}
         onSearch={(query) => {
           setSearchQuery(query);
           if (view !== 'shop') setView('shop');
+          setShowOnlyOffers(false);
         }}
         location={location}
         onLocationClick={handleLocationClick}
-        onNavAction={handleNavAction}
-        onProfileClick={() => setView('login')}
-        currentNav={isOffersOnly ? 'offers' : selectedCategory}
+        onNavClick={handleNavClick}
       />
 
       <main className="flex-1">
         {view === 'shop' && (
           <>
-            {selectedCategory === 'all' && !searchQuery && !isOffersOnly && <Hero />}
+            {selectedCategory === 'all' && !searchQuery && !showOnlyOffers && <Hero onAction={handleNavClick} />}
 
-            <div className="container mx-auto px-4 py-12">
-              <div className="flex items-center justify-between mb-10">
-                <div>
-                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">Explore Categories</h2>
-                  <p className="text-gray-500 text-sm mt-1">Wide range of fresh essentials just for you</p>
-                </div>
+            <div className="container mx-auto px-4 py-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl md:text-2xl font-black text-gray-800 flex items-center gap-2">
+                  Browse Categories
+                </h2>
               </div>
-              <div className="flex gap-6 overflow-x-auto pb-6 no-scrollbar">
+              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                 {CATEGORIES.map(cat => (
                   <button 
                     key={cat.id}
                     onClick={() => {
                       setSelectedCategory(cat.id);
-                      setIsOffersOnly(false);
-                      setSearchQuery('');
+                      setShowOnlyOffers(false);
                     }}
-                    className={`flex flex-col items-center gap-4 min-w-[120px] p-6 rounded-[2rem] transition-all duration-300 ${selectedCategory === cat.id && !isOffersOnly ? 'bg-green-600 text-white shadow-2xl shadow-green-200 -translate-y-2' : 'bg-white hover:bg-green-50 text-gray-700 shadow-sm border border-gray-100'}`}
+                    className={`flex flex-col items-center gap-2 min-w-[100px] p-4 rounded-2xl transition-all ${selectedCategory === cat.id && !showOnlyOffers ? 'bg-blue-600 text-white shadow-lg shadow-blue-100 scale-105' : 'bg-white hover:bg-blue-50 text-gray-700'}`}
                   >
-                    <div className={`text-4xl transition-transform duration-300 ${selectedCategory === cat.id && !isOffersOnly ? 'scale-110' : ''}`}>{cat.icon}</div>
-                    <span className="text-[11px] font-black uppercase tracking-widest whitespace-nowrap">{cat.name}</span>
+                    <span className="text-3xl">{cat.icon}</span>
+                    <span className="text-xs font-bold whitespace-nowrap uppercase tracking-tighter">{cat.name}</span>
                   </button>
                 ))}
               </div>
             </div>
 
-            {selectedCategory === 'all' && !searchQuery && !isOffersOnly && (
-              <div className="bg-white py-20 border-y border-gray-100">
+            {selectedCategory === 'all' && !searchQuery && !showOnlyOffers && festiveProducts.length > 0 && (
+              <div className="bg-white py-12">
                 <div className="container mx-auto px-4">
-                  <div className="flex items-center justify-between mb-12">
+                  <div className="flex items-center justify-between mb-8">
                     <div>
-                      <h2 className="text-4xl font-black text-gray-900 tracking-tight">Festive Specials</h2>
-                      <p className="text-gray-500 text-base mt-2">Traditional favorites for your celebrations</p>
+                      <h2 className="text-3xl font-black text-gray-800 mb-1">
+                        <span className="text-red-500">Festive</span> <span className="text-blue-600">Specials</span>
+                      </h2>
+                      <p className="text-gray-500 text-sm">Handpicked for your celebrations</p>
                     </div>
+                    <button 
+                      onClick={() => handleNavClick('offers')}
+                      className="flex items-center gap-1 text-red-500 font-bold hover:gap-2 transition-all"
+                    >
+                      View All <ChevronRight size={20} />
+                    </button>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
                     {festiveProducts.map(product => (
                       <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
                     ))}
@@ -198,17 +185,24 @@ const App: React.FC = () => {
               </div>
             )}
 
-            <div className="container mx-auto px-4 py-20">
-              <h2 className="text-4xl font-black text-gray-900 tracking-tight mb-12">
-                {isOffersOnly ? 'Hot Offers' : searchQuery ? `Search: "${searchQuery}"` : selectedCategory === 'all' ? 'Popular Picks' : CATEGORIES.find(c => c.id === selectedCategory)?.name}
-              </h2>
+            <div className="container mx-auto px-4 py-12">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-black text-gray-800">
+                  {showOnlyOffers ? 'Special Offers' : searchQuery ? `Results for "${searchQuery}"` : selectedCategory === 'all' ? 'Popular Picks' : CATEGORIES.find(c => c.id === selectedCategory)?.name}
+                </h2>
+                <span className="bg-blue-50 text-blue-600 text-xs font-black px-3 py-1 rounded-full border border-blue-100">
+                  {filteredProducts.length} Items
+                </span>
+              </div>
+              
               {filteredProducts.length === 0 ? (
-                <div className="text-center py-32 bg-white rounded-[3rem] border-2 border-dashed border-gray-100">
-                  <p className="text-gray-500">No items found. Try another search!</p>
-                  <button onClick={() => handleNavAction('home')} className="mt-8 bg-green-600 text-white font-black px-10 py-4 rounded-2xl">Reset</button>
+                <div className="text-center py-20 bg-white rounded-[2.5rem] border-4 border-dashed border-gray-100">
+                  <div className="text-6xl mb-4 animate-bounce">🔍</div>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">No items found</h3>
+                  <p className="text-gray-500">Try a different search or browse another category</p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
                   {filteredProducts.map(product => (
                     <ProductCard key={product.id} product={product} onAddToCart={addToCart} />
                   ))}
@@ -219,48 +213,82 @@ const App: React.FC = () => {
         )}
 
         {view === 'checkout' && (
-          <CheckoutPage items={cart} onBack={() => setView('shop')} onComplete={handleOrderComplete} />
-        )}
-
-        {view === 'login' && (
-          <LoginPage onLogin={handleLogin} onSwitchToSignup={() => setView('signup')} onBack={() => setView('shop')} />
-        )}
-
-        {view === 'signup' && (
-          <SignupPage onSignup={handleLogin} onSwitchToLogin={() => setView('login')} onBack={() => setView('shop')} />
+          <CheckoutPage 
+            items={cart} 
+            onBack={() => setView('shop')} 
+            onComplete={handleOrderComplete}
+          />
         )}
       </main>
 
-      <footer className="bg-white border-t border-gray-100 py-24">
+      <footer className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div>
-              <h1 className="text-3xl font-black flex items-center mb-1">
-                <span className="text-green-600">Instant</span>
-                <span className="text-orange-500">Kirana</span>
-              </h1>
-              <p className="text-[11px] tracking-[0.3em] text-gray-400 font-black uppercase mb-4">NEOFIN NEX India Private Limited</p>
-              <p className="text-gray-500 text-sm leading-relaxed">Delivering quality groceries directly to your doorstep in minutes.</p>
+              <div className="mb-6">
+                <h1 className="text-3xl font-black flex items-center">
+                  <span className="text-blue-400">e</span>
+                  <span className="text-red-500">cart</span>
+                </h1>
+                <span className="text-[10px] tracking-widest text-gray-500 font-bold uppercase mt-1 block">MTST SEVA Technologies Pvt. Ltd.</span>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                Redefining shopping with speed and quality. Local essentials delivered instantly from our Shivnagar hub in Warangal.
+              </p>
             </div>
+
             <div>
-              <h4 className="font-black text-gray-900 mb-8 uppercase text-xs tracking-[0.2em]">Legal</h4>
-              <ul className="space-y-4 text-sm text-gray-500 font-bold">
-                <li><button onClick={() => openLegal('privacy')} className="hover:text-green-600">Privacy Policy</button></li>
-                <li><button onClick={() => openLegal('terms')} className="hover:text-green-600">Terms of Service</button></li>
-                <li><button onClick={() => openLegal('return')} className="hover:text-green-600">Refund Policy</button></li>
+              <h4 className="font-black text-red-500 mb-6 uppercase tracking-wider text-xs">Quick Shop</h4>
+              <ul className="space-y-4 text-sm text-gray-400 font-medium">
+                <li><button onClick={() => handleNavClick('fruits')} className="hover:text-blue-400 transition-colors">Veggies & Fruits</button></li>
+                <li><button onClick={() => handleNavClick('staples')} className="hover:text-blue-400 transition-colors">Atta & Rice</button></li>
+                <li><button onClick={() => handleNavClick('sweets')} className="hover:text-blue-400 transition-colors">Biscuits & Cookies</button></li>
+                <li><button onClick={() => handleNavClick('dairy')} className="hover:text-blue-400 transition-colors">Daily Essentials</button></li>
               </ul>
             </div>
+
             <div>
-              <h4 className="font-black text-gray-900 mb-8 uppercase text-xs tracking-[0.2em]">Contact</h4>
-              <div className="space-y-6 text-sm text-gray-500 font-bold">
-                <div className="flex gap-4"><MapPin size={20} className="text-green-600"/> Plot no 102, Venkatagiri, Hyderabad</div>
-                <div className="flex gap-4"><Phone size={20} className="text-green-600"/> 8143900450</div>
+              <h4 className="font-black text-red-500 mb-6 uppercase tracking-wider text-xs">Legal & Support</h4>
+              <ul className="space-y-4 text-sm text-gray-400 font-medium">
+                <li><button onClick={() => openLegal('privacy')} className="hover:text-blue-400 transition-colors">Privacy Policy</button></li>
+                <li><button onClick={() => openLegal('terms')} className="hover:text-blue-400 transition-colors">Terms & Conditions</button></li>
+                <li><button onClick={() => openLegal('return')} className="hover:text-blue-400 transition-colors">Refund Policy</button></li>
+                <li><button onClick={() => openLegal('safety')} className="hover:text-blue-400 transition-colors">Safety Policy</button></li>
+                <li><button onClick={() => openLegal('shipping')} className="hover:text-blue-400 transition-colors">Shipping Policy</button></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-black text-red-500 mb-6 uppercase tracking-wider text-xs">Reach Us</h4>
+              <div className="space-y-5">
+                <div className="flex gap-3 items-start">
+                  <MapPin className="text-blue-400 shrink-0" size={18} />
+                  <p className="text-sm text-gray-400 font-medium leading-tight">
+                    11-9-15, A J MILLS, OCITY, Shivnagar, Warangal – 506002, Telangana
+                  </p>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <Mail className="text-blue-400 shrink-0" size={18} />
+                  <p className="text-sm text-gray-400 font-medium">support@mtstsevakendra.in</p>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <Phone className="text-blue-400 shrink-0" size={18} />
+                  <p className="text-sm text-gray-400 font-medium">+91 9490053646</p>
+                </div>
               </div>
             </div>
           </div>
-          <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] border-t pt-10">
-            &copy; {new Date().getFullYear()} NEOFIN NEX INDIA PRIVATE LIMITED. ALL RIGHTS RESERVED.
-          </p>
+          
+          <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest text-center md:text-left">
+              &copy; {new Date().getFullYear()} MTST SEVA Technologies Pvt. Ltd. All rights reserved.
+            </p>
+            <div className="flex gap-4">
+              <div className="w-8 h-5 bg-blue-600 rounded-sm opacity-50"></div>
+              <div className="w-8 h-5 bg-red-500 rounded-sm opacity-50"></div>
+              <div className="w-8 h-5 bg-white rounded-sm opacity-20"></div>
+            </div>
+          </div>
         </div>
       </footer>
 
@@ -273,7 +301,11 @@ const App: React.FC = () => {
         onCheckout={handleCheckoutClick}
       />
 
-      <LegalModal isOpen={legalModal.isOpen} onClose={() => setLegalModal({ ...legalModal, isOpen: false })} type={legalModal.type} />
+      <LegalModal 
+        isOpen={legalModal.isOpen} 
+        onClose={() => setLegalModal({ ...legalModal, isOpen: false })} 
+        type={legalModal.type} 
+      />
     </div>
   );
 };

@@ -17,7 +17,7 @@ interface Coupon {
 }
 
 const COUPONS: Coupon[] = [
-  { code: 'KIRAN10', discount: 10, type: 'percent' },
+  { code: 'ECART10', discount: 10, type: 'percent' },
   { code: 'FRESH50', discount: 50, type: 'flat', minOrder: 500 },
   { code: 'WELCOME', discount: 20, type: 'percent' },
   { code: 'FREE750', discount: 0, type: 'free_shipping', minOrder: 750 }
@@ -35,7 +35,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
     name: '',
     email: '',
     phone: '',
-    address: 'Plot no 102, First floor, Sukiran Apartments, Venkatagiri, Yousufguda, Hyderabad, Telangana 500045'
+    address: '11-9-15, A J MILLS, OCITY, Shivnagar, Warangal – 506002, Telangana'
   });
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -108,7 +108,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
             <CheckCircle2 className="text-green-600" size={48} />
           </div>
           <h2 className="text-3xl font-black text-gray-800 mb-2">Order Confirmed!</h2>
-          <p className="text-gray-500 mb-8">Thank you, {formData.name.split(' ')[0]}! Your order is being packed for lightning-fast delivery from our Yousufguda hub.</p>
+          <p className="text-gray-500 mb-8">Thank you, {formData.name.split(' ')[0]}! Your order is being packed for lightning-fast delivery from our Warangal hub.</p>
           <div className="animate-pulse text-green-600 font-bold">Redirecting you home...</div>
         </div>
       </div>
@@ -196,7 +196,7 @@ const CheckoutPage: React.FC<CheckoutPageProps> = ({ items, onBack, onComplete }
                         <Tag className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                         <input 
                           type="text" 
-                          placeholder="Enter Promo Code (e.g. KIRAN10)"
+                          placeholder="Enter Promo Code (e.g. ECART10)"
                           className="w-full bg-gray-50 border-2 border-transparent focus:border-green-500 rounded-2xl py-3 pl-12 pr-4 transition-all outline-none text-sm uppercase font-bold"
                           value={couponInput}
                           onChange={(e) => setCouponInput(e.target.value)}

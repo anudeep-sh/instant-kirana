@@ -37,84 +37,86 @@ const SmartAssistant: React.FC<SmartAssistantProps> = ({ products }) => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100]">
+    <div className="fixed bottom-8 right-8 z-[100]">
       {isOpen ? (
-        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 w-80 md:w-96 flex flex-col overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
-          <div className="bg-green-600 p-4 text-white flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-white/20 rounded-xl relative">
-                <Bot size={24} />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 border-2 border-green-600 rounded-full animate-pulse"></div>
+        <div className="bg-white rounded-[2.5rem] shadow-2xl border-4 border-blue-50 w-80 md:w-[400px] flex flex-col overflow-hidden animate-in zoom-in slide-in-from-bottom-10 duration-500 ease-out">
+          <div className="bg-gradient-to-br from-blue-600 to-indigo-700 p-6 text-white flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white/20 rounded-2xl relative shadow-inner">
+                <Bot size={28} className="animate-pulse" />
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-400 border-4 border-blue-600 rounded-full"></div>
               </div>
               <div>
-                <h3 className="font-bold text-sm">Instant AI Helper</h3>
-                <p className="text-[10px] text-green-100">Finding the freshest picks</p>
+                <h3 className="font-black text-lg italic tracking-tight">ecart Assistant</h3>
+                <p className="text-[10px] text-blue-100 font-bold uppercase tracking-widest opacity-80">Funky AI Support</p>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 rounded-full p-1 transition-colors">
-              <X size={20} />
+            <button onClick={() => setIsOpen(false)} className="hover:bg-red-500 rounded-full p-2 transition-all">
+              <X size={24} />
             </button>
           </div>
 
-          <div ref={scrollRef} className="h-96 overflow-y-auto p-4 flex flex-col gap-4 scroll-smooth bg-gray-50/30">
+          <div ref={scrollRef} className="h-[400px] overflow-y-auto p-6 flex flex-col gap-6 scroll-smooth bg-gray-50/50">
             {chatHistory.length === 0 && (
-              <div className="text-center py-12">
-                <div className="relative inline-block mb-4">
-                  <div className="absolute inset-0 bg-green-100 rounded-full blur-xl scale-150"></div>
-                  <Sparkles className="relative text-green-600 animate-bounce" size={40} />
+              <div className="text-center py-10">
+                <div className="relative inline-block mb-6">
+                  <div className="absolute inset-0 bg-red-500 rounded-full blur-[40px] opacity-20 scale-150 animate-pulse"></div>
+                  <div className="p-6 bg-white rounded-full shadow-2xl relative">
+                    <Sparkles className="text-red-500" size={48} />
+                  </div>
                 </div>
-                <h4 className="text-sm font-bold text-gray-700 mb-2">How can I help you today?</h4>
-                <div className="space-y-2 px-6">
-                  <button onClick={() => setQuery("Recommend some fresh fruits")} className="w-full p-2 bg-white border border-gray-200 rounded-lg text-[10px] text-gray-500 hover:border-green-300 hover:text-green-600 transition-all">
-                    "Recommend some fresh fruits"
+                <h4 className="text-base font-black text-gray-900 mb-2 italic tracking-tight">Need a suggestion?</h4>
+                <p className="text-xs text-gray-400 mb-6 font-medium">I know all about our freshest picks!</p>
+                <div className="space-y-3 px-4">
+                  <button onClick={() => setQuery("Recommend some fresh fruits")} className="w-full p-3 bg-white border-2 border-gray-100 rounded-2xl text-[11px] font-black text-blue-600 hover:border-blue-400 hover:scale-105 transition-all uppercase tracking-widest shadow-sm">
+                    🍎 Fresh Fruits
                   </button>
-                  <button onClick={() => setQuery("What sweets are available for Pongal?")} className="w-full p-2 bg-white border border-gray-200 rounded-lg text-[10px] text-gray-500 hover:border-green-300 hover:text-green-600 transition-all">
-                    "What sweets are available for Pongal?"
-                  </button>
-                  <button onClick={() => setQuery("Suggest items for a healthy breakfast")} className="w-full p-2 bg-white border border-gray-200 rounded-lg text-[10px] text-gray-500 hover:border-green-300 hover:text-green-600 transition-all">
-                    "Suggest items for a healthy breakfast"
+                  <button onClick={() => setQuery("Quick snack ideas")} className="w-full p-3 bg-white border-2 border-gray-100 rounded-2xl text-[11px] font-black text-red-500 hover:border-red-400 hover:scale-105 transition-all uppercase tracking-widest shadow-sm">
+                    🍟 Snack Time
                   </button>
                 </div>
               </div>
             )}
             {chatHistory.map((msg, idx) => (
-              <div key={idx} className={`max-w-[85%] ${msg.role === 'user' ? 'self-end bg-green-600 text-white' : 'self-start bg-white border border-gray-100 text-gray-800 shadow-sm'} p-3 rounded-2xl text-[12px] font-medium leading-relaxed`}>
+              <div key={idx} className={`max-w-[85%] ${msg.role === 'user' ? 'self-end bg-red-500 text-white rounded-tr-none' : 'self-start bg-white border-2 border-blue-50 text-gray-800 shadow-xl shadow-blue-50 rounded-tl-none'} p-4 rounded-[1.5rem] text-[13px] font-bold leading-relaxed`}>
                 {msg.content}
               </div>
             ))}
             {loading && (
-              <div className="self-start bg-white border border-gray-100 p-3 rounded-2xl shadow-sm">
-                <div className="flex gap-1">
-                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce"></div>
-                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+              <div className="self-start bg-white border-2 border-blue-50 p-4 rounded-[1.5rem] rounded-tl-none shadow-xl shadow-blue-50">
+                <div className="flex gap-1.5">
+                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-red-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                 </div>
               </div>
             )}
           </div>
 
-          <form onSubmit={handleAsk} className="p-4 bg-white border-t flex gap-2 items-center">
+          <form onSubmit={handleAsk} className="p-6 bg-white border-t border-gray-100 flex gap-3 items-center">
             <input 
               type="text" 
-              placeholder="Ask for suggestions..." 
-              className="flex-1 bg-gray-100 border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-green-500 focus:outline-none transition-all"
+              placeholder="Ask ecart anything..." 
+              className="flex-1 bg-gray-50 border-2 border-transparent focus:border-blue-600 rounded-2xl px-5 py-4 text-sm font-bold focus:outline-none transition-all shadow-inner"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            <button type="submit" disabled={loading} className="bg-green-600 text-white p-3 rounded-xl hover:bg-green-700 transition-colors disabled:opacity-50 shadow-lg shadow-green-100">
-              <Send size={18} />
+            <button type="submit" disabled={loading} className="bg-red-500 text-white p-4 rounded-2xl hover:bg-blue-600 hover:scale-110 transition-all disabled:opacity-50 shadow-xl shadow-red-100">
+              <Send size={20} className="stroke-[3px]" />
             </button>
           </form>
         </div>
       ) : (
         <button 
           onClick={() => setIsOpen(true)}
-          className="bg-green-600 text-white p-4 rounded-2xl shadow-xl shadow-green-200 hover:scale-105 hover:-translate-y-1 transition-all flex items-center gap-3 group relative overflow-hidden"
+          className="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-5 rounded-[2rem] shadow-[0_20px_50px_rgba(37,99,235,0.4)] hover:scale-110 hover:-translate-y-2 transition-all flex items-center gap-4 group relative overflow-hidden active:scale-95 border-4 border-white/20"
         >
-          <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-          <div className="relative flex items-center gap-2">
-            <Sparkles size={20} className="group-hover:rotate-12 transition-transform" />
-            <span className="font-bold text-sm tracking-wide">Instant AI Help</span>
+          <div className="absolute inset-0 bg-red-500 -translate-x-full group-hover:translate-x-0 transition-transform duration-1000 opacity-20"></div>
+          <div className="relative flex items-center gap-3">
+            <div className="p-2 bg-white/20 rounded-xl">
+                <Sparkles size={24} className="group-hover:rotate-45 transition-transform" />
+            </div>
+            <span className="font-black text-sm tracking-[0.1em] uppercase italic">ecart AI</span>
           </div>
         </button>
       )}

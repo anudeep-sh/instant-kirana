@@ -24,8 +24,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onSwitchToSignup, onBack
         <div className="text-center mb-10">
           <div className="inline-block mb-4">
             <h1 className="text-3xl font-black flex items-center justify-center">
-              <span className="text-green-600">Instant</span>
-              <span className="text-orange-500">Kirana</span>
+              <span className="text-green-600">e</span>
+              <span className="text-orange-500">cart</span>
             </h1>
           </div>
           <h2 className="text-2xl font-bold text-gray-800">Welcome Back</h2>
@@ -89,7 +89,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onSwitchToSignup, onBack
         </div>
 
         <p className="text-center mt-10 text-sm text-gray-500">
-          New to InstantKirana? 
+          New to ecart? 
           <button onClick={onSwitchToSignup} className="ml-1 text-green-600 font-bold hover:underline">Create an account</button>
         </p>
         
