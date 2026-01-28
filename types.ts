@@ -26,3 +26,10 @@ export type Location = {
   lat?: number;
   lng?: number;
 };
+
+export interface User {
+  name: string;
+  email: string;
+}
+
+export type View = 'shop' | 'checkout' | 'login' | 'signup';

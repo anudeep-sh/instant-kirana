@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { X, Shield, FileText, Truck, RefreshCw } from 'lucide-react';
+import { X, Shield, FileText, Truck, RefreshCw, HeartPulse } from 'lucide-react';
+import { LegalType } from '../App';
 
 interface LegalModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: 'privacy' | 'terms' | 'shipping' | 'return';
+  type: LegalType;
 }
 
 const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
@@ -17,16 +18,38 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       icon: <Shield className="text-green-600" size={24} />,
       sections: [
         {
-          heading: '1. Information We Collect',
-          text: 'We collect information you provide directly during the checkout process. This includes your name, email, phone number, and delivery address in the Hyderabad region.'
+          heading: '1. Introduction',
+          text: 'At NEOFIN NEX India Private Limited (InstantKirana), we respect your privacy and are committed to protecting your personal data. This policy outlines how we collect, use, and safeguard your information.'
         },
         {
-          heading: '2. How We Use Your Information',
-          text: 'Your data helps us process transactions and ensure lightning-fast delivery from our Venkatagiri hub. We operate under NEOFIN NEX India Private Limited.'
+          heading: '2. Data Collection',
+          text: 'We collect information such as your name, mobile number, delivery address, and email when you place an order. We also collect device information and location data to facilitate local deliveries in the Hyderabad region.'
         },
         {
-          heading: '3. Data Security',
-          text: 'We implement industry-standard 256-bit SSL encryption to protect your personal information and payment details during transit.'
+          heading: '3. Data Usage',
+          text: 'Your data is used solely for processing orders, communicating delivery updates, and improving our service. We do not sell your personal information to third parties.'
+        },
+        {
+          heading: '4. Security Measures',
+          text: 'We use industry-standard encryption (AES-256) and secure servers to protect your sensitive data during transactions.'
+        }
+      ]
+    },
+    safety: {
+      title: 'Safety Policy',
+      icon: <HeartPulse className="text-blue-500" size={24} />,
+      sections: [
+        {
+          heading: '1. Product Quality & Hygiene',
+          text: 'NEOFIN NEX India Private Limited adheres to strict FSSAI guidelines. All fresh produce and groceries are stored in temperature-controlled environments to maintain maximum hygiene and nutritional value.'
+        },
+        {
+          heading: '2. Safe Handling',
+          text: 'Our warehouse staff and delivery partners follow rigorous hand-sanitization and masking protocols. Every package is checked for integrity before dispatch from our Yousufguda hub.'
+        },
+        {
+          heading: '3. No-Contact Delivery',
+          text: 'We offer specialized no-contact delivery options. Our riders are trained to maintain physical distance and leave packages at designated spots to ensure customer safety.'
         }
       ]
     },
@@ -35,16 +58,38 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       icon: <FileText className="text-orange-500" size={24} />,
       sections: [
         {
-          heading: '1. Acceptance of Terms',
-          text: 'By using InstantKirana, you agree to be bound by these terms. Our services are provided by NEOFIN NEX India Private Limited, headquartered at Plot no 102, First floor, Sukiran Apartments, Venkatagiri, Yousufguda, Hyderabad, Telangana 500045.'
+          heading: '1. General Terms',
+          text: 'These terms govern your use of the InstantKirana platform provided by NEOFIN NEX India Private Limited. By accessing our platform, you agree to comply with all applicable local and national laws.'
         },
         {
-          heading: '2. Delivery Policy',
-          text: 'We aim for delivery within 15-30 minutes. However, delivery times may vary based on local conditions in Venkatagiri and Yousufguda.'
+          heading: '2. User Accounts',
+          text: 'You are responsible for maintaining the confidentiality of your account details. Orders placed through your account are considered authorized by you.'
         },
         {
-          heading: '3. Pricing and Availability',
-          text: 'While we strive for accuracy, prices and stock levels for fresh produce and staples are subject to change without notice.'
+          heading: '3. Intellectual Property',
+          text: 'All content, including logos, designs, and text, is the exclusive property of NEOFIN NEX India Private Limited. Unauthorized reproduction is strictly prohibited.'
+        },
+        {
+          heading: '4. Limitation of Liability',
+          text: 'While we strive for excellence, we are not liable for any indirect or consequential damages arising from the use of our services.'
+        }
+      ]
+    },
+    return: {
+      title: 'Refund Policy',
+      icon: <RefreshCw className="text-red-500" size={24} />,
+      sections: [
+        {
+          heading: '1. Eligibility for Refund',
+          text: 'NEOFIN NEX India Private Limited offers refunds for items that are damaged, expired, or significantly different from their description. For fresh items like milk and vegetables, refund requests must be initiated at the time of delivery.'
+        },
+        {
+          heading: '2. Refund Process',
+          text: 'Once a refund is approved, the amount will be credited back to your original payment method within 3 to 5 business days. For cash on delivery orders, refunds are issued via UPI or to your platform wallet.'
+        },
+        {
+          heading: '3. Cancellation Policy',
+          text: 'Orders can be canceled free of charge before they are dispatched. Once an order is out for delivery, a nominal cancellation fee may apply.'
         }
       ]
     },
@@ -54,33 +99,15 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
       sections: [
         {
           heading: '1. Delivery Area',
-          text: 'Currently, InstantKirana operates exclusively in the Hyderabad region, serving Yousufguda, Venkatagiri, and surrounding neighborhoods within a 5km radius of our hub.'
+          text: 'Currently, InstantKirana operates exclusively in the Hyderabad region, serving Yousufguda, Venkatagiri, and surrounding neighborhoods.'
         },
         {
           heading: '2. Delivery Times',
-          text: 'Our standard delivery time is between 15 to 30 minutes from the time of order confirmation. We operate daily from 6:00 AM to 11:00 PM.'
+          text: 'Our standard delivery time is between 15 to 30 minutes. We operate daily from 6:00 AM to 11:00 PM.'
         },
         {
           heading: '3. Shipping Charges',
           text: 'Delivery is FREE for all orders above ₹500. For orders below this amount, a flat delivery fee of ₹40 applies.'
-        }
-      ]
-    },
-    return: {
-      title: 'Return & Refund Policy',
-      icon: <RefreshCw className="text-red-500" size={24} />,
-      sections: [
-        {
-          heading: '1. Freshness Guarantee',
-          text: 'For fresh produce (fruits, vegetables, dairy), we offer a no-questions-asked return at the doorstep if you are not satisfied with the quality at the time of delivery.'
-        },
-        {
-          heading: '2. Return Period',
-          text: 'Packaged goods can be returned within 24 hours of delivery, provided the seal is intact and the product is unused. Please retain the original invoice.'
-        },
-        {
-          heading: '3. Refunds',
-          text: 'Refunds for canceled or returned orders are processed within 2-3 business days to your original payment method. In the case of cash on delivery, the amount will be credited to your InstantKirana wallet or bank account via UPI.'
         }
       ]
     }
@@ -119,7 +146,7 @@ const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, type }) => {
           ))}
           <div className="pt-8 border-t text-center">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-              Last Updated: March 2024
+              &copy; {new Date().getFullYear()} NEOFIN NEX India Private Limited. All rights reserved.
             </p>
           </div>
         </div>
